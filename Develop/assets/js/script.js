@@ -83,8 +83,9 @@ function renderTaskList() {
   }
 
   $(".draggable").draggable({
-    revert: "invalid",
-    helper: "clone",
+    stack: ".swim-lanes",
+    containment: ".swim-lanes",
+    grid: [10, 10],
   });
 }
 
@@ -116,6 +117,7 @@ function handleAddTask(event) {
   var myModalEl = document.getElementById("formModal");
   var modal = bootstrap.Modal.getInstance(myModalEl);
   modal.hide();
+  renderTaskList();
 }
 
 // Todo: create a function to handle deleting a task
@@ -131,13 +133,16 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-  const targetList = event.target.id.replace("-cards", "");
+  const targetListId = event.target.id.replace("-cards", ""); // Remove '-cards' from id string so we can get the list number
   const card = ui.draggable[0];
-  const taskID = $(card).data("id");
-  const tasks = retrieveTasks();
-  for (const taskData of tasks) {
-    if (taskData.id === taskID) {
-      taskData.status = targetList;
+
+  const projectId = $(card).data("id");
+
+  const projects = loadProjectFromLocalStorage();
+
+  for (const task of projects) {
+    if (task.id === projectId) {
+      task.status = targetListId;
     }
   }
   saveTasks(tasks);
