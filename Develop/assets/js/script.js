@@ -1,6 +1,6 @@
 // declare variables
-const $swimLane = $(".swimlane");
-const $taskList = $("#task-list");
+const cardColumns = $(".card-lane");
+const taskForm = $("inputForm");
 
 // create a function to get localStorage data
 function getLocalStorageData() {
