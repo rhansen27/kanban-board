@@ -23,6 +23,20 @@ function generateTaskId() {
   return curID;
 }
 
+// write a function to retrieve tasks from local storage
+function retieveTasks() {
+  let tasks = JSON.parse(localStorage.getItem("tasks"));
+  if (!tasks) {
+    tasks = [];
+  }
+  return tasks;
+}
+// save the tasks to local storage
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+}
+
+// Todo: create a function to get the time until a task is due
 function getTaskTime(task) {
   const taskDate = dayjs(task.date);
   const today = dayjs().format("YYYY-MM-DD");
@@ -40,7 +54,19 @@ function getTaskTime(task) {
 }
 
 // Todo: create a function to create a task card
-function createTaskCard(task) {}
+function createTaskCard(task) {
+  const timeUntilDue = getTaskTime(task);
+  const card = $(`
+    <div class="card draggable task-card ${timeUntilDue}" data-id="${task.id}" data-status="${task.status}">
+        <div class="card-body">
+            <h5 class="card-title">${task.title}</h5>
+            <p class="card-text">${task.description}</p>
+            <p class="card-text">${task.date}</p>
+            <button class="btn btn-danger delete-task">Delete</button>
+            </div>
+            </div>`);
+  return card;
+}
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {}
