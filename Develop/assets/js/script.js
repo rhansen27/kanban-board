@@ -32,7 +32,7 @@ function retieveTasks() {
   return tasks;
 }
 // save the tasks to local storage
-function saveTasks() {
+function saveTasks(taskList) {
   localStorage.setItem("tasks", JSON.stringify(taskList));
 }
 
@@ -93,7 +93,34 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event) {}
+function handleAddTask(event) {
+  event.preventDefault();
+
+  const taskTitle = $("#taskTitle").val();
+  const taskDate = $("#dueDate").val();
+  const taskDescription = $("#taskDescription").val();
+
+  if (!taskTitle || !taskDate || !taskDescription) {
+    alert("Please fill out all fields");
+    return;
+  }
+
+  let savedTask = retrieveTasks();
+
+  const newTask = {
+    id: generateTaskId(),
+    title: taskTitle,
+    date: taskDate,
+    description: taskDescription,
+    status: "todo",
+  };
+
+  tasksList.push(newTask);
+  saveTasks(taskList);
+  var myModalEl = document.getElementById("formModal");
+  var modal = bootstrap.Modal.getInstance(myModalEl);
+  modal.hide();
+}
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {}
