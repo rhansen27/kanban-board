@@ -2,6 +2,15 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+const taskForm = $("#inputForm");
+const taskTitle = $("#taskTitle");
+const taskDate = $("#dueDate");
+const taskDescription = $("#taskDescription");
+
+const todoCards = $("#todo-cards");
+const inProgressCards = $("#in-progress-cards");
+const doneCards = $("#done-cards");
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {}
 
