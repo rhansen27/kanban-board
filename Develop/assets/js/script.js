@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+let nextID = JSON.parse(localStorage.getItem("nextId"));
 
 const taskForm = $("#inputForm");
 const taskTitle = $("#taskTitle");
@@ -12,7 +12,16 @@ const inProgressCards = $("#in-progress-cards");
 const doneCards = $("#done-cards");
 
 // Todo: create a function to generate a unique task id
-function generateTaskId() {}
+function generateTaskId() {
+  let curID = 1;
+
+  if (nextId) {
+    curID = nextId;
+  }
+  nextID = Number(curID) + 1;
+  localStorage.setItem("nextID", nextID);
+  return curID;
+}
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {}
