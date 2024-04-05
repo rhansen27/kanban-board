@@ -23,6 +23,22 @@ function generateTaskId() {
   return curID;
 }
 
+function getTaskTime(task) {
+  const taskDate = dayjs(task.date);
+  const today = dayjs().format("YYYY-MM-DD");
+
+  const daysUntilDue = taskDate.diff(today, "day");
+  if (task.status === "done") {
+    return "Finished";
+  } else if (daysUntilDue === 0) {
+    return "Due Today";
+  } else if (daysUntilDue < 0) {
+    return `${Math.abs(daysUntilDue)} days overdue`;
+  } else {
+    return `${daysUntilDue} days until due`;
+  }
+}
+
 // Todo: create a function to create a task card
 function createTaskCard(task) {}
 
